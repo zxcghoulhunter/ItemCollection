@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Item
+
+<form method="post" asp-action="AddItem" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Cname">Name</label>
+        <input asp-for="Name" class="form-control" id="name" placeholder="name">
+    </div>
+    <div class="form-group">
+        <label for="Cname">Tags</label>
+        <input asp-for="Tags" class="form-control" id="name" placeholder="name">
+    </div>
+    @foreach (var field in ViewBag.Fields)
+    {
+        var type = field.Substring(field.Length - 4, 4);
+
+        @if (type == "(b1)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input id="Enable" name="Enable" type="checkbox" asp-for="BoolFieldOne" value="false" />
+                <input name="Enable" type="hidden" value="false" />
+            </div>
+        }
+        @if (type == "(b2)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+                <input class="form-check-input" asp-for="BoolFieldTwo" type="checkbox" value="false" id="flexCheckDefault">
+            </div>
+        }
+        @if (type == "(b3)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input class="form-check-input" asp-for="BoolFieldThree" type="checkbox" value="false" id="flexCheckDefault">
+            </div>
+        }
+        @if (type == "(i1)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input asp-for="IntFieldOne" class="form-control" id="name" placeholder="name">
+            </div>
+        }
+        @if (type == "(i2)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input asp-for="IntFieldTwo" class="form-control" id="name" placeholder="name">
+            </div>
+        }
+        @if (type == "(i3)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input asp-for="IntFieldThree" class="form-control" id="name" placeholder="name">
+            </div>
+        }
+        @if (type == "(s1)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input asp-for="StringFieldOne" class="form-control" id="name" placeholder="name">
+            </div>
+        }
+        @if (type == "(s2)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input asp-for="StringFieldTwo" class="form-control" id="name" placeholder="name">
+            </div>
+        }
+        @if (type == "(s3)")
+        {
+            var str = field.Substring(0, field.Length - 4);
+            <div class="form-group">
+                <label for="Cname">@str</label>
+
+                <input asp-for="StringFieldThree" class="form-control" id="name" placeholder="name">
+            </div>
+        }
+    }
+    <button type="submit" class="btn btn-primary mb-2">Confirm</button>
+</form>

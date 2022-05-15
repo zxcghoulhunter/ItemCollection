@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ItemCollection.Areas.Identity.Data.ItemCollectionUser>
+    <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Create">ItemCollection</a>
+    <table class="table">
+        @using (Html.BeginForm())
+        {
+            @foreach (var user in Model)
+            {
+        <tr>
+            <td>
+                @user.UserName
+                @Html.HiddenFor(m => user.Id)
+            </td>
+            <td>
+            <td>
+                @user.Id
+                @Html.HiddenFor(m => user.Id)
+            </td>
+            <td>
+                <form asp-action="Delete" asp-route-name="@user.UserName" method="post">
+                    @Html.HiddenFor(m => user.UserName)
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form asp-action="Ban" asp-route-name="@user.UserName" method="post">
+                    @Html.HiddenFor(m => user.UserName)
+                    <button type="submit" class="btn btn-sm btn-outline-dark">
+                        Блок
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form asp-action="Unban" asp-route-name="@user.UserName" method="post">
+                    @Html.HiddenFor(m => user.UserName)
+                    <button type="submit" class="btn btn-sm btn-success">
+                        Разблок
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form asp-action="MakeAdmin" asp-route-name="@user.UserName" method="post">
+                    @Html.HiddenFor(m => user.UserName)
+                    <button type="submit" class="btn btn-sm btn-success">
+                        
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+            }
+        }
+    </table>

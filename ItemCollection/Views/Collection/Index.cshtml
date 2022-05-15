@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model Collection
+<style>
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    h1 {
+        font-size: 50px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/lib/jquery/dist/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<div class="container">
+    @if (User.Identity.Name == Model.Owner || User.IsInRole("admin"))
+    {
+    <a class="nav-link text-dark" asp-area="" asp-action="AddItem" asp-route-id="@Model.Id">Add Item</a>
+    <a class="nav-link text-dark" asp-area="" asp-action="DeleteCollection" asp-route-id="@Model.Id">Delete Collection</a>
+    }
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <h1>@Model.Name</h1>
+            <p>
+                @Model.Description
+            </p>
+            @if (Model.ItemList.Count != 0)
+            {
+                @foreach (var obj in Model.ItemList)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <a asp-action="ItemPage" asp-route-id="@obj.Id"><h5 class="card-title">@obj.Name</h5></a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <img src="@("/image/" + Model.Image.Name)" class="card-img-top" alt="123">
+            <div id="content"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Collection>
+
+    <form asp-controller="Home" asp-action="Index">
+        <p>
+            Title: <input type="text" name="SearchString" />
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
+@foreach(var obj in ViewBag.Tags)
+            {
+<form asp-controller="Home" asp-action="SearchTag" asp-route-name="@obj.TagName">     
+        <input style="display: inline-block;" type="submit" value="@obj.TagName" />
+</form>
+            }
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+       
+        @foreach (var obj in Model)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="@("/image/" + obj.Image.Name)" class="card-img-top" alt="123">
+                <div class="card-body">
+                    <h5 class="card-title">@obj.Name</h5>
+
+                    @if (@obj.Description.Length > 50)
+                    {
+                <p class="card-text">
+                    @obj.Description.Substring(0,50) ...
+                </p>
+                    }
+                    else
+                {
+                <p class="card-text">
+                    @obj.Description
+                </p>
+                }
+
+                <a asp-controller="Collection" asp-action="Index" asp-route-Id="@obj.Id" class="btn btn-primary">Go to collection page</a>
+                    </div>
+            </div>
+        }
+    </div>
+    @{ 
+        Model.Sort((a, b) => a.ItemList.Count.CompareTo(b.ItemList.Count));
+    }
+<div class="col-lg-6 col-md-6">
+    <h5>Коллекции с наибольшим количеством айтемов</h5>
+    @foreach (var obj in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <img src="@("/image/" + obj.Image.Name)" class="card-img-top" alt="123">
+            <div class="card-body">
+                <h5 class="card-title">@obj.Name</h5>
+
+                @if (@obj.Description.Length > 50)
+                {
+                    <p class="card-text">
+                        @obj.Description.Substring(0, 50) ...
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text">
+                        @obj.Description
+                    </p>
+                }
+
+            <a asp-controller="Collection" asp-action="Index" asp-route-Id="@obj.Id" class="btn btn-primary">Go to collection page</a>
+            </div>
+        </div>
+    }
+</div>
+    
+    </div>
+</div>

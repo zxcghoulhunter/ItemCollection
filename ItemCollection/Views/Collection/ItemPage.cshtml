@@ -1,0 +1,102 @@
+﻿
+@model Item
+
+
+<h1>@Model.Name</h1>
+<h5>Tags</h5>
+@foreach(var tag in Model.ItemTags)
+            {
+                 <p>@tag.TagName</p>   
+            }
+@foreach (var field in ViewBag.Fields)
+{
+    var type = field.Substring(field.Length - 4, 4);
+
+    @if (type == "(b1)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+        <h5>@str : @Html.CheckBoxFor(p => p.BoolFieldOne)</h5>
+
+    }
+    @if (type == "(b2)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+        <h5>@str: @Html.CheckBoxFor(p => p.BoolFieldTwo)</h5>
+    }
+    @if (type == "(b3)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+        <h5>@str: @Html.CheckBoxFor(p => p.BoolFieldThree)</h5>
+    }
+    @if (type == "(i1)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+        <h5>@str: @Model.IntFieldOne</h5>
+    }
+    @if (type == "(i2)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+        <h5>@str: @Model.IntFieldTwo</h5>
+    }
+    @if (type == "(i3)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+        <h5>@str: @Model.IntFieldThree</h5>
+    }
+    @if (type == "(s1)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+<h5>@str: @Model.StringFieldOne</h5>
+    }
+    @if (type == "(s2)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+<h5>@str: @Model.StringFieldTwo</h5>
+    }
+    @if (type == "(s3)")
+    {
+        var str = field.Substring(0, field.Length - 4);
+<h5>@str: @Model.StringFieldThree</h5>
+    }
+}
+
+<div id="commentForm">
+    <table width="100%" cellpadding="5" cellspacing="2" border="0">
+        <tr>
+            <td colspan="2">
+                <div id="divMessage" style="color:red; font-weight:bold;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Comment : </td>
+            <td>@Html.TextArea("comment", "", new { @Id = "txtComment" })</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                @if (User.Identity.IsAuthenticated)
+                {
+                <input type="button" value="PostComment" id="btnValidate" onclick="Postcomment()" />    
+                }
+</div>
+<table id="commenttable" border="1">
+    <tbody></tbody>
+</table>
+<div id="dvPartial">@Html.Partial("_Partial", Model.Comments)</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+   function Postcomment() {
+            var username = $("#txtName").val();
+       var usercomment = $("#txtComment").val();
+       var modelId = @Model.Id;
+            $.ajax({
+                method: "POST",
+                url: "/Collection/SaveComment/",
+                data: { comment: usercomment, item: modelId}
+            })
+             .done(function (msg) {
+                 $("#dvPartial").load('/Collection/GetPartial' + '?id=' + modelId);
+             });
+        }
+
+
+</script>

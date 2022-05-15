@@ -1,0 +1,63 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Collection
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Cname">Name</label>
+        <input asp-for="Name" class="form-control" id="Cname" placeholder="name">
+    </div>
+    <div class="form-group">
+        <label for="topic">Topic</label>
+        <select asp-for="Topic" multiple class="form-control" id="topic">
+            <option>Books</option>
+            <option>Cards</option>
+            <option>Coins</option>
+            <option>Statuettes</option>
+            <option>Magazines</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="desc">Description</label>
+        <textarea asp-for="Description" class="form-control" id="desc" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Cname">Custom integer fields</label>
+        <input asp-for="IntFieldOneName" class="form-control" id="I1name" placeholder="integer field">
+    </div>
+    <div class="form-group">
+        <input asp-for="IntFieldTwoName" class="form-control" id="I1name" placeholder="integer field">
+    </div>
+    <div class="form-group">
+        <input asp-for="IntFieldThreeName" class="form-control" id="I1name" placeholder="integer field">
+    </div>
+    <div class="form-group">
+        <label for="Cname">Custom string fields</label>
+        <input asp-for="StringFieldOneName" class="form-control" id="I1name" placeholder="string field">
+    </div>
+    <div class="form-group">
+        <input asp-for="StringFieldTwoName" class="form-control" id="I1name" placeholder="string field">
+    </div>
+    <div class="form-group">
+        <input asp-for="StringFieldThreeName" class="form-control" id="I1name" placeholder="string field">
+    </div>
+    <div class="form-group">
+        <label for="Cname">Custom bool fields</label>
+        <input asp-for="BoolFieldOneName" class="form-control" id="I1name" placeholder="bool field">
+    </div>
+    <div class="form-group">
+        <input asp-for="BoolFieldTwoName" class="form-control" id="I1name" placeholder="bool field">
+    </div>
+    <div class="form-group">
+        <input asp-for="BoolFieldThreeName" class="form-control" id="I1name" placeholder="bool field">
+    </div>
+
+    <div class="form-group">
+        <label for="addfile">Image</label>
+        <input type="file" asp-for="Image.ImageFile" accept="image/png,image/jpeg" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Confirm</button>
+</form>
